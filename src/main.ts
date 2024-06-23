@@ -12,5 +12,3 @@ async function bootstrap() {
 }
 
 bootstrap();
-
-export const handler = serverlessExpress({ app: expressApp });
