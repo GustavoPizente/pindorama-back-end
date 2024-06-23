@@ -8,7 +8,7 @@
     ],
     "routes": [],
     "env": {
-      "DATABASE_URL": "mysql://username:password@localhost:3306/pindorama",
+      "DATABASE_URL": "mysql://root:279413@localhost:3306/pindorama",
       "NODE_ENV": "production"
     },
     "projectSettings": {
