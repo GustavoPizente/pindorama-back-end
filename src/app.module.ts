@@ -1,26 +1,31 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { MadeirasModule } from './madeiras/madeiras.module';
 import { Madeiras } from './madeiras/madeiras.entity';
-import { ConfigModule } from '@nestjs/config';
-
 
 @Module({
-  imports:[
-    ConfigModule.forRoot(),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT, 10),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      entities: [Madeiras],
-      synchronize: true, // Não use em produção - pode causar perda de dados
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
-    MadeirasModule
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get<string>('DB_USER'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_NAME'),
+        entities: [Madeiras],
+        synchronize: true, // Não use em produção - pode causar perda de dados
+      }),
+      inject: [ConfigService],
+    }),
+    MadeirasModule,
   ],
   controllers: [AppController],
   providers: [AppService],
