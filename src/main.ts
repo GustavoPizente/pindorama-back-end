@@ -8,6 +8,8 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization',
   });
-  await app.listen(5000);
+
+  const port = process.env.PORT || 5000;
+  await app.listen(port);
 }
 bootstrap();
