@@ -9,7 +9,7 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Authorization',
   });
 
-  const port = process.env.PORT || 5000;
+  const port = process.env.PORT;
   await app.listen(port);
 }
 bootstrap();
