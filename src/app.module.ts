@@ -20,7 +20,7 @@ import { Madeiras } from './madeiras/madeiras.entity';
         username: configService.get<string>('DB_USER'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [Madeiras],
+        entities: [Madeiras], 
         synchronize: true, // Não use em produção - pode causar perda de dados
       }),
       inject: [ConfigService],
