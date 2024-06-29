@@ -17,23 +17,23 @@ export class MadeirasService {
     novaMadeira.name = name;
     novaMadeira.cor = cor;
     novaMadeira.localidade =  localidade;
-    console.log(name);
+    console.log('novoRegistro',novaMadeira);
     return this.MadeirasRepository.save(novaMadeira);
     
   }
 
 
-  async findMadeiras(name?: string, cor?: string, localidade?: string): Promise<Madeiras[]> {
+ findMadeiras(name?: string, cor?: string, localidade?: string): Promise<Madeiras[]> {
     const where: any = {};
     
     if (name) {
-      where.name = name;
+      where.name = name.trim();
     }
     if (cor) {
-      where.cor = cor;
+      where.cor = cor.trim();
     }
     if (localidade) {
-      where.localidade = localidade;
+      where.localidade = localidade.trim();
     }
     
     console.log('Filtrando por:', where);
